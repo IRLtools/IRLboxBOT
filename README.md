@@ -27,7 +27,7 @@ You have the option to run this compiled download here (#placeholder), or contin
 
    ```bash
    git clone https://github.com/IRLtools/IRLboxBOT.git
-   cd twitch-bot
+   cd IRLboxBOT
    ```
 
 2. Install dependencies:
