@@ -1,0 +1,27 @@
+{
+  "name": "twitch-bot",
+  "version": "1.0.0",
+  "description": "A Twitch bot",
+  "main": "bot.js",
+  "scripts": {
+    "start": "set NODE_NO_WARNINGS=1 && node bot.js"
+  },
+  "dependencies": {
+    "tmi.js": "^1.8.3",
+    "axios": "^0.21.1",
+    "winston": "^3.3.3"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": "bot.js",
+  "pkg": {
+    "assets": [
+      "node_modules/axios/**/*"
+    ],
+    "scripts": [
+      "bot.js",
+      "commands.js",
+      "logger.js"
+    ]
+  }
+}
