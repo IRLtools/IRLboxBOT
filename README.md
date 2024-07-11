@@ -38,19 +38,31 @@ You have the option to run this compiled download here (#placeholder), or contin
 
 3. Create and update `config.json` with your Twitch and API credentials:
 
+
+Command permissions/restrictions can be set to to `mods`, `vip`, `streamer`, and `everyone`.  
    ```json
-   {
-     "twitch": {
-       "username": "YOUR_TWITCH_USERNAME",
-       "password": "YOUR_TWITCH_OAUTH_TOKEN",
-       "channels": ["YOUR_CHANNEL_NAME"]
-     },
-     "api": {
-       "baseUrl": "https://remote.irlbox.com/api/Server",
-       "boardCuid": "YOUR_BOARD_CUID",
-       "authToken": "Bearer YOUR_API_AUTH_TOKEN"
-     }
-   }
+{
+  "twitch": {
+    "username": "YOUR_TWITCH_USERNAME",
+    "password": "YOUR_TWITCH_OAUTH_TOKEN",
+    "channels": ["YOUR_CHANNEL_NAME"]
+  },
+  "api": {
+    "baseUrl": "https://remote.irlbox.com/api/Server",
+    "boardCuid": "YOUR_BOARD_CUID",
+    "authToken": "Bearer YOUR_API_AUTH_TOKEN"
+  },
+  "commands": {
+    "!cpu": "everyone",
+    "!memory": "mods",
+    "!disk": "streamer",
+    "!temp": "vip",
+    "!devices": "mods",
+    "!irlbox start": "mods",
+    "!irlbox stop": "mods"
+  }
+}
+
    ```
 
 4. Start the bot:
