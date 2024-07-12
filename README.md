@@ -45,7 +45,7 @@ Command permissions/restrictions can be set to to `mods`, `vip`, `streamer`, and
   "twitch": {
     "username": "YOUR_TWITCH_USERNAME",
     "password": "YOUR_TWITCH_OAUTH_TOKEN",
-    "channels": ["YOUR_CHANNEL_NAME"]
+    "channels": ["#YOUR_CHANNEL_NAME"]
   },
   "api": {
     "baseUrl": "https://remote.irlbox.com/api/Server",
@@ -56,12 +56,14 @@ Command permissions/restrictions can be set to to `mods`, `vip`, `streamer`, and
     "!cpu": "everyone",
     "!memory": "mods",
     "!disk": "streamer",
-    "!temp": "vip",
+    "!temp": "everyone",
     "!devices": "mods",
-    "!irlbox start": "mods",
-    "!irlbox stop": "mods"
+    "!irlbox start": "streamer",
+    "!irlbox stop": "streamer",
+    "!reboot": "streamer"
   }
 }
+
 
    ```
 
