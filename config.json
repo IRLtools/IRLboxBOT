@@ -10,12 +10,13 @@
     "authToken": "Bearer YOUR_API_AUTH_TOKEN"
   },
   "commands": {
-    "!cpu": "mods",
+    "!cpu": "everyone",
     "!memory": "mods",
-    "!disk": "mods",
+    "!disk": "streamer",
     "!temp": "everyone",
     "!devices": "mods",
     "!irlbox start": "streamer",
-    "!irlbox stop": "streamer"
+    "!irlbox stop": "streamer",
+    "!reboot": "streamer"
   }
 }

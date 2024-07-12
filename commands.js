@@ -2,9 +2,7 @@ const axios = require('axios');
 const config = require('./config.json');
 const logger = require('./logger');  // Import the logger
 
-
-// # ToDo:  Clean up commands functions, turn each function into it's own module
-
+// Function to fetch data from the API
 async function fetchData() {
   try {
     const response = await axios.get(`${config.api.baseUrl}/realtimedata?boardCuid=${config.api.boardCuid}`, {
@@ -21,6 +19,7 @@ async function fetchData() {
   }
 }
 
+// Functions to get specific information
 async function getCpuInfo(client, target) {
   try {
     const data = await fetchData();
@@ -138,11 +137,32 @@ async function toggleIrlboxStream(client, target, isStreaming) {
   }
 }
 
+// Function to reboot the IRLBox server
+async function rebootIrlboxServer(client, target) {
+  try {
+    await axios.post(`${config.api.baseUrl}/reboot`, null, {
+      params: { boardCuid: config.api.boardCuid },
+      headers: {
+        'accept': '*/*',
+        'Authorization': config.api.authToken
+      }
+    });
+
+    const message = 'IRLBox is rebooting.';
+    client.say(target, message);
+    logger.info(`Output for !reboot: ${message}`);
+  } catch (error) {
+    logger.error('Error in rebootIrlboxServer:', error);
+    client.say(target, 'Error rebooting IRLBox server.');
+  }
+}
+
 module.exports = {
   getCpuInfo,
   getMemoryInfo,
   getDiskInfo,
   getTempInfo,
   getDevicesInfo,
-  toggleIrlboxStream
+  toggleIrlboxStream,
+  rebootIrlboxServer
 };

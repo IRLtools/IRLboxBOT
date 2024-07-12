@@ -1,9 +1,10 @@
 const tmi = require('tmi.js');
-const { getCpuInfo, getMemoryInfo, getDiskInfo, getTempInfo, getDevicesInfo, toggleIrlboxStream } = require('./commands');
+const { getCpuInfo, getMemoryInfo, getDiskInfo, getTempInfo, getDevicesInfo, toggleIrlboxStream, rebootIrlboxServer } = require('./commands');
 const winston = require('winston');
 const path = require('path');
 const fs = require('fs');
 
+// Function to read config.json from the current working directory
 function readConfig() {
   const configPath = path.join(process.cwd(), 'config.json');
   if (!fs.existsSync(configPath)) {
@@ -20,8 +21,6 @@ const logger = require('./logger');  // Import the logger
 function hasRole(user, role, userState) {
   const cleanChannels = config.twitch.channels.map(channel => channel.replace('#', '').toLowerCase());
   const isStreamer = cleanChannels.includes(user.toLowerCase());
-  console.log(user)
-  console.log(config.twitch.channels.map(channel => channel.replace('#', '').toLowerCase()))
   const isMod = userState.mod || userState['user-type'] === 'mod' || (userState.badges && userState.badges.moderator);
   const isVip = userState.badges && userState.badges.vip;
 
@@ -39,11 +38,11 @@ function hasRole(user, role, userState) {
   }
 }
 
-// # ToDo:  Add kick.com and break off chat into their own directory
 async function main() {
   try {
     logger.info('Starting Twitch bot...');
 
+    // Define configuration options
     const opts = {
       identity: {
         username: config.twitch.username,
@@ -52,6 +51,7 @@ async function main() {
       channels: config.twitch.channels
     };
 
+    // Create a client with our options
     const client = new tmi.client(opts);
 
     // Register event handlers
@@ -72,6 +72,7 @@ async function main() {
       logger.info(`Received command: ${commandName} from ${user}`);
 
       try {
+        // Execute the appropriate command
         if (commandName === '!cpu') {
           await getCpuInfo(client, target);
         } else if (commandName === '!memory') {
@@ -86,6 +87,8 @@ async function main() {
           await toggleIrlboxStream(client, target, false);
         } else if (commandName === '!irlbox stop') {
           await toggleIrlboxStream(client, target, true);
+        } else if (commandName === '!reboot') {
+          await rebootIrlboxServer(client, target);
         }
       } catch (error) {
         logger.error(`Error executing command ${commandName}: ${error.message}`);
